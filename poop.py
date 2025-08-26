@@ -1,11 +1,16 @@
 from configs import *
+
+
 class Poop:
+    """Resíduo deixado pelo inimigo no cenário."""
+
     def __init__(self, x, y):
         self.__x = x
         self.__y = y
         self.__skin = skin.POOP
 
     def draw(self, screen):
+        """Desenha o cocô na tela."""
         screen.blit(self.__skin, [self.__x, self.__y])
 
     # Area de sobreposição
