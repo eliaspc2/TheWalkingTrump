@@ -3,8 +3,12 @@ import pygame.transform
 from configs import *
 from direction import *
 
+
 class Missil:
+    """Projétil disparado pelo jogador."""
+
     def __init__(self, center_x, center_y, dir):
+        """Cria o míssil na posição central do jogador."""
         self.__speed = 10
         self.__direction = dir
 
@@ -16,28 +20,31 @@ class Missil:
             self.__skin = pygame.transform.flip(
                 pygame.transform.rotate(skin.MISSIL, -90),
                 True,
-                False
+                False,
             )
-        else: # LEFT
+        else:  # LEFT
             self.__skin = pygame.transform.flip(skin.MISSIL, True, False)
 
         self.__x = center_x - self.__skin.get_width() / 2
         self.__y = center_y - self.__skin.get_height() / 2
 
     def move(self):
+        """Move o míssil na direção definida."""
         if self.__direction == direction.TOP:
             self.__y -= self.__speed
         elif self.__direction == direction.RIGHT:
             self.__x += self.__speed
         elif self.__direction == direction.BOTTOM:
             self.__y += self.__speed
-        else: # LEFT
+        else:  # LEFT
             self.__x -= self.__speed
 
     def draw(self, screen):
+        """Desenha o míssil na tela."""
         screen.blit(self.__skin, [self.__x, self.__y])
 
     def is_out(self):
+        """Retorna True se o míssil saiu da área da janela."""
         # Não simplificado
         """if self.__y < - self.__skin.get_height():
             return True
@@ -52,10 +59,10 @@ class Missil:
 
         # Simplificado
         return (
-            self.__y < - self.__skin.get_height() or # TOP
-            self.__x > window.WIDTH or # RIGHT
-            self.__y > window.HEIGHT or # Bottom
-            self.__x < - self.__skin.get_width() # LEFT
+            self.__y < -self.__skin.get_height()  # TOP
+            or self.__x > window.WIDTH  # RIGHT
+            or self.__y > window.HEIGHT  # Bottom
+            or self.__x < -self.__skin.get_width()  # LEFT
         )
 
     # Area de sobreposição
